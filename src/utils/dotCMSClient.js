@@ -6,5 +6,8 @@ export const dotCMSClient = createDotCMSClient({
     siteId: process.env.NEXT_PUBLIC_DOTCMS_SITE_ID,
     requestOptions: {
         cache: "no-cache",
+        headers: {
+            dotcachettl: 0
+        }
     },
 });

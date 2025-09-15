@@ -1,5 +1,5 @@
 export const blogQuery = `
-    search(query: "+contenttype:Blog +live:true", limit: 3) {
+    search(query: "+contenttype:Blog +live:true", limit: 9) {
         title
         identifier
         ... on Blog {
@@ -20,21 +20,6 @@ export const blogQuery = `
     }
 `;
 
-export const destinationQuery = `
-    search(query: "+contenttype:Destination +live:true", limit: 3) {
-        title
-        identifier
-        ... on Destination {
-                inode
-                image {
-                fileName
-                }
-                urlMap
-                modDate
-                url
-        }
-    }
-`;
 
 export const navigationQuery = `
 DotNavigation(uri: "/", depth: 2) {

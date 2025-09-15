@@ -14,7 +14,7 @@ export default function BlogCard({ blog }) {
     const isEditMode = useIsEditMode();
 
     return (
-        <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 relative flex flex-col h-full">
+        <div className="flex size-full flex-col gap-2 p-3 bg-[#fdfdfb] rounded-2xl border group transition-all duration-200 hover:shadow-lg cursor-pointer relative">
             {isEditMode && (
                 <button
                     onClick={() => editContentlet(blog)}
@@ -24,34 +24,43 @@ export default function BlogCard({ blog }) {
                 </button>
             )}
 
-            <div className="relative h-48 w-full">
+            <div className="w-full aspect-video rounded-lg overflow-hidden shrink-0">
                 {image ? (
-                    <Image
-                        src={inode}
-                        alt={urlTitle || title}
-                        fill={true}
-                        className="object-cover"
-                    />
+                    <picture className="relative block w-full h-full object-cover">
+                        <Image
+                            alt={urlTitle || title}
+                            title={title}
+                            loading="lazy"
+                            decoding="async"
+                            className="size-full object-cover"
+                            src={inode}
+                            style={{ position: 'absolute', height: '100%', width: '100%', inset: '0px' }}
+                            fill={true}
+                        />
+                    </picture>
                 ) : (
-                    <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                        <span className="text-gray-400">No image</span>
+                    <div className="w-full h-full bg-gradient-to-br from-white/10 to-white/5 rounded-lg flex items-center justify-center">
+                        <span className="text-muted-foreground">No image</span>
                     </div>
                 )}
             </div>
 
-            <div className="p-4 flex flex-col grow">
-                <h3 className="text-lg font-bold mb-2 hover:text-blue-600">
-                    <a href={urlMap}>{title}</a>
-                </h3>
-
-                {teaser && (
-                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-                        {teaser}
-                    </p>
-                )}
-
-                <div className="flex justify-between items-center mt-auto pt-3 border-t border-gray-100">
-                    <time className="text-sm text-gray-500">
+            <div className="flex w-full flex-col gap-4 grow p-3">
+                <div className="text-md w-full flex flex-col gap-4">
+                    <a href={urlMap} className="font-bold text-foreground text-lg group-hover:text-[#cce600] transition-colors duration-200">
+                        {title}
+                    </a>
+                    {teaser && (
+                        <div className="line-clamp-4">
+                            <p className="text-muted-foreground">
+                                {teaser}
+                            </p>
+                        </div>
+                    )}
+                </div>
+                
+                <div className="flex justify-between items-center mt-auto">
+                    <time className="text-sm text-muted-foreground">
                         {new Date(modDate).toLocaleDateString(
                             "en-US",
                             dateFormatOptions,

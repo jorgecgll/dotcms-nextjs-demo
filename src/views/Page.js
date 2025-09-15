@@ -11,7 +11,7 @@ export function Page({ pageContent }) {
     const navigation = content.navigation;
 
     return (
-        <div className="flex flex-col gap-6 min-h-screen bg-slate-50">
+        <div className="">
             {pageAsset?.layout.header && (
                 <Header navItems={navigation?.children} />
             )}

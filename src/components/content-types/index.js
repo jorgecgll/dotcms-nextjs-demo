@@ -1,9 +1,7 @@
 import { CustomNoComponent } from "./Empty";
-import Activity from "./Activity";
 import Banner from "./Banner";
 import BannerCarousel from "./BannerCarousel";
 import CalendarEvent from "./CalendarEvent";
-import CallToAction from "./CallToAction";
 import CategoryFilter from "./CategoryFilter";
 import SimpleWidget from "./SimpleWidget";
 import ImageComponent from "./Image";
@@ -12,14 +10,15 @@ import Product from "./Product";
 import StoreProductList from "./StoreProductList";
 import VtlInclude from "./VtlInclude";
 import WebPageContent from "./WebPageContent";
-import YouTube from "./YouTube";
+import Card from "./Card";
+import FaqWidget from "./FaqWidget";
 
 export const pageComponents = {
-    Activity: Activity,
     Banner: Banner,
     BannerCarousel: BannerCarousel,
+    FaqWidget: FaqWidget,
     calendarEvent: CalendarEvent,
-    CallToAction: CallToAction,
+    CallToAction: Card,
     CategoryFilter: CategoryFilter,
     CustomNoComponent: CustomNoComponent,
     Image: ImageComponent,
@@ -29,5 +28,4 @@ export const pageComponents = {
     StoreProductList: StoreProductList,
     VtlInclude: VtlInclude,
     webPageContent: WebPageContent,
-    YouTube: YouTube,
 };

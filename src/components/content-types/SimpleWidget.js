@@ -1,24 +1,24 @@
 import { useIsEditMode } from "@/hooks/isEditMode";
-const TRAVEL_BOT_KEY = "908b8a434ad7e539632b8db57f2967c0";
+const AI_BOT_KEY = "908b8a434ad7e539632b8db57f2967c0";
 
 export default function SimpleWidget({ widgetTitle, identifier, code }) {
     const isEditMode = useIsEditMode();
-    if (TRAVEL_BOT_KEY == identifier) {
+    if (AI_BOT_KEY == identifier) {
         return (
             <div className="bg-white rounded-lg shadow-sm p-8 text-center max-w-lg mx-auto my-6">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4">
-                    WELCOME TO TRAVELBOT
+                    WELCOME TO aiBot
                 </h2>
 
                 <p className="text-gray-600 mb-4">
-                    TravelBot is built with{" "}
+                    aiBot is built with{" "}
                     <span className="font-medium">dotAI</span>, the dotCMS suite
                     of AI features.
                 </p>
 
                 <p className="text-gray-600">
                     Please configure the dotAI App to enable dotAI and
-                    TravelBot.
+                    aiBot.
                 </p>
             </div>
         );

@@ -1,39 +1,53 @@
-import Image from "next/image";
-import Link from "next/link";
+import React from "react"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import Image from "next/image"
 import { DotCMSEditableText } from "@dotcms/react";
 
-function Banner(contentlet) {
-    const { title, caption, inode, image, link, buttonText } = contentlet;
-
+export default function Banner(props) {
+    const { title, caption, inode, image, link, buttonText } = props;
+    
     return (
-        <div className="relative w-full p-4 bg-gray-200 h-96">
-            {image && (
-                <Image
-                    src={inode}
-                    fill={true}
-                    className="object-cover"
-                    alt={title}
-                />
-            )}
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center text-white">
-                <h2 className="mb-2 text-6xl font-bold text-shadow">
+        <section className="w-full py-12 md:py-16 lg:py-20">
+            <div className="max-w-4xl mx-auto px-4 text-center">
+                {/* Main heading */}
+                <h1 className="text-foreground text-3xl md:text-4xl lg:text-6xl font-semibold leading-tight mb-4">
                     <DotCMSEditableText
-                        contentlet={contentlet}
+                        contentlet={props}
                         fieldName="title"
                     />
-                </h2>
-                <p className="mb-4 text-xl text-shadow">{caption}</p>
-                {link && (
-                    <Link
-                        className="p-4 text-xl transition duration-300 bg-blue-500 rounded-sm hover:bg-blue-700"
-                        href={link}
-                    >
-                        {buttonText || "See more"}
+                </h1>
+                
+                {/* Subtitle */}
+                <p className="text-muted-foreground text-base md:text-base lg:text-lg font-medium leading-relaxed max-w-lg mx-auto mb-8">
+                    {caption}
+                </p>
+                
+                {/* CTA Button */}
+                {link && buttonText && (
+                    <Link href={link} target="_blank" rel="noopener noreferrer">
+                        <Button className="bg-primary text-primary-foreground hover:bg-primary-dark px-8 py-3 rounded-full font-medium text-base shadow-lg ring-1 ring-white/10">
+                            {buttonText}
+                        </Button>
                     </Link>
                 )}
             </div>
-        </div>
-    );
+            
+            {/* Image section */}
+            {image && (
+                <div className="max-w-6xl mx-auto px-4 mt-12">
+                    <div className="bg-gray-100 rounded-2xl p-2">
+                        <Image
+                            src={inode}
+                            width={1200}
+                            height={600}
+                            alt={title}
+                            className="w-full h-auto object-cover rounded-xl"
+                        />
+                    </div>
+                </div>
+            )}
+        </section>
+    )
 }
 
-export default Banner;

@@ -48,3 +48,63 @@ export async function searchContent(query, indexName = "Blog", limit = 10) {
         };
     }) || [];
 }
+
+/**
+ * Generate AI response using dotAI completions API
+ * @param {string} prompt - The user's question/prompt
+ * @returns {Promise<string>} AI response text
+ */
+export async function generateAIResponse(prompt) {
+    if (!prompt.trim()) throw new Error("Prompt is required");
+    if (!process.env.NEXT_PUBLIC_DOTCMS_HOST || !process.env.NEXT_PUBLIC_DOTCMS_AUTH_TOKEN) {
+        throw new Error("dotCMS configuration is missing");
+    }
+
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_DOTCMS_HOST}api/v1/ai/completions`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_DOTCMS_AUTH_TOKEN}`,
+            },
+            body: JSON.stringify({
+                prompt: prompt.trim(),
+                searchLimit: 20,
+                searchOffset: 0,
+                responseLengthTokens: 500,
+                language: 1,
+                stream: false,
+                fieldVar: "blogContent",
+                indexName: "Blog",
+                threshold: 0.5,
+                temperature: 0.7,
+                model: "gpt-5",
+                operator: "<=>",
+            })
+        });
+
+        if (!response.ok) throw new Error(`AI generation failed: ${response.status}`);
+
+        const data = await response.json();
+        
+        // Log the full response for debugging
+        console.log('AI Completions Response:', JSON.stringify(data, null, 2));
+        
+        // Extract the AI response and sources
+        const aiResponse = data.openAiResponse?.choices?.[0]?.message?.content || 'No response generated';
+        const sources = data.dotCMSResults?.map((result, index) => {
+            const contentlet = result.contentlet || result;
+            return {
+                title: contentlet.title || contentlet.urlTitle || 'Untitled',
+                url: contentlet.urlMap || contentlet.urlTitle || '#',
+                contentType: contentlet.contentType || 'Unknown',
+                score: result.matches?.[0]?.distance || 0
+            };
+        }) || [];
+        
+        return { response: aiResponse, sources };
+    } catch (error) {
+        console.error('AI generation error:', error);
+        throw new Error(`AI generation failed: ${error.message}`);
+    }
+}

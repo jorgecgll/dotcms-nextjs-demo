@@ -2,12 +2,27 @@
 
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, ChevronDown } from "lucide-react"
+import { Menu, ChevronDown, Search } from "lucide-react"
 import Link from "next/link" // Import Link for client-side navigation
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import SearchModal from "./SearchModal"
 
 export default function Header() {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+
+  // Handle Cmd+K keyboard shortcut
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+        event.preventDefault()
+        setIsSearchOpen(true)
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [])
   
   const productsItems = [
     { name: "Chequing", href: "/products/chequing" },
@@ -79,6 +94,16 @@ export default function Header() {
           </nav>
         </div>
         <div className="flex items-center gap-4">
+          {/* Search Button */}
+          <button
+            onClick={() => setIsSearchOpen(true)}
+            className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 rounded-full text-muted-foreground hover:text-foreground hover:border-gray-400 hover:bg-gray-50 cursor-pointer transition-all duration-200"
+          >
+            <Search className="h-4 w-4" />
+            <span className="text-sm">Search...</span>
+            <span className="text-xs bg-gray-100 px-1.5 py-0.5 rounded text-muted-foreground">⌘K</span>
+          </button>
+          
           <Link href="https://vercel.com/home" target="_blank" rel="noopener noreferrer" className="hidden md:block">
             <Button className="bg-primary text-primary-foreground hover:bg-primary-dark px-6 py-2 rounded-full font-medium shadow-sm transition-colors">
               Try for Free
@@ -130,6 +155,12 @@ export default function Header() {
           </Sheet>
         </div>
       </div>
+      
+      {/* Search Modal */}
+      <SearchModal 
+        isOpen={isSearchOpen} 
+        onClose={() => setIsSearchOpen(false)} 
+      />
     </header>
   )
 }

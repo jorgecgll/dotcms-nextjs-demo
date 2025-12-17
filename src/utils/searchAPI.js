@@ -76,7 +76,7 @@ export async function generateAIResponse(prompt) {
                 stream: false,
                 fieldVar: "blogContent",
                 indexName: "Blog",
-                threshold: 0.5,
+                threshold: 0.25,
                 temperature: 0.7,
                 model: "gpt-5",
                 operator: "<=>",

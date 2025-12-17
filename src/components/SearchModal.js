@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { X, Search, Loader2, Globe, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Search, Loader2, Globe, Sparkles } from "lucide-react";
 import { searchContent, generateAIResponse } from "@/utils/searchAPI";
 import Link from "next/link";
 

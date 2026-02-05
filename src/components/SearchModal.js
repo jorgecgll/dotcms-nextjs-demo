@@ -22,9 +22,7 @@ export default function SearchModal({ isOpen, onClose }) {
         setHasSearched(true);
         
         try {
-            console.log("Searching for:", searchQuery);
-            
-            const results = await searchContent(searchQuery, "Blog", 10);
+            const results = await searchContent(searchQuery, "default", 10);
             setSearchResults(results);
         } catch (error) {
             console.error("Search error:", error);
@@ -42,8 +40,6 @@ export default function SearchModal({ isOpen, onClose }) {
         setHasSearched(true);
         
         try {
-            console.log("Asking AI:", searchQuery);
-            
             const { response, sources } = await generateAIResponse(searchQuery);
             setAiResponse(response);
             setAiSources(sources);

@@ -64,26 +64,26 @@
   --background: #ffffff; /* Pure white */
   --foreground: #1f1f1f; /* Near black */
 
-  /* Primary Colors - Lime Green Theme */
-  --primary: #e5ff03; /* Your exact lime green */
-  --primary-foreground: #1f1f1f; /* Dark text for contrast */
-  --primary-dark: #cce600; /* Darker lime for hover */
-  --primary-light: #f0ff4d; /* Lighter lime for backgrounds */
+  /* Primary Colors - Ocean Blue Theme */
+  --primary: #0284c7; /* Sky Blue 600 - vibrant ocean blue */
+  --primary-foreground: #ffffff; /* White text for contrast */
+  --primary-dark: #0369a1; /* Sky Blue 700 - darker blue for hover */
+  --primary-light: #0ea5e9; /* Sky Blue 500 - lighter blue for backgrounds */
 
   /* Secondary Colors - Complementary */
-  --secondary: #f8ffcc; /* Very light lime tint */
-  --secondary-foreground: #404040; /* Dark gray */
+  --secondary: #e0f2fe; /* Sky Blue 50 - very light blue tint */
+  --secondary-foreground: #0c4a6e; /* Sky Blue 900 - dark blue-gray */
 
   /* Accent Colors - Supporting */
-  --accent: #f2ff99; /* Light lime accent */
-  --accent-foreground: #404040; /* Dark text */
+  --accent: #bae6fd; /* Sky Blue 200 - light blue accent */
+  --accent-foreground: #0c4a6e; /* Dark blue text */
 
   /* Muted Colors - Subtle */
-  --muted: #f8ffcc; /* Very subtle lime tint */
-  --muted-foreground: #737373; /* Medium gray */
-  --muted-foreground-light: #a6a6a6; /* Light gray */
-  --muted-foreground-dark: #595959; /* Dark gray */
-  --card-bg: #fdfdfb; /* Super subtle warm white for cards */
+  --muted: #f0f9ff; /* Sky Blue 50 - very subtle blue tint */
+  --muted-foreground: #475569; /* Slate 600 - darker gray for better readability */
+  --muted-foreground-light: #94a3b8; /* Slate 400 - light gray */
+  --muted-foreground-dark: #334155; /* Slate 700 - dark gray */
+  --card-bg: #fafbfc; /* Super subtle cool white for cards */
 
   /* Card & Popover */
   --card: #ffffff; /* Pure white */
@@ -93,37 +93,37 @@
 
   /* Borders & Inputs */
   --border: #e5e7eb; /* Light gray border */
-  --border-light: #f3f4f6; /* Lighter border */
-  --border-dark: #d1d5db; /* Darker border */
-  --input: #e6ff33; /* Input border */
-  --ring: #e5ff03; /* Focus ring using primary */
+  --border-light: #f1f5f9; /* Lighter border */
+  --border-dark: #cbd5e1; /* Darker border */
+  --input: #0284c7; /* Input border */
+  --ring: #0284c7; /* Focus ring using primary */
 
   /* Destructive */
   --destructive: #dc2626; /* Red for errors */
   --destructive-foreground: #ffffff; /* White text */
 
   /* Charts - Harmonious palette */
-  --chart-1: #e5ff03; /* Primary lime */
-  --chart-2: #0d9488; /* Teal */
-  --chart-3: #ea580c; /* Orange */
-  --chart-4: #7c3aed; /* Purple */
-  --chart-5: #0d9488; /* Blue-green */
+  --chart-1: #0284c7; /* Primary ocean blue */
+  --chart-2: #0ea5e9; /* Sky blue */
+  --chart-3: #f59e0b; /* Amber - warm accent */
+  --chart-4: #10b981; /* Emerald - tropical green */
+  --chart-5: #06b6d4; /* Cyan - ocean teal */
 
   /* Sidebar - Consistent with theme */
-  --sidebar: #f8ffcc; /* Very light lime */
+  --sidebar: #f0f9ff; /* Very light blue */
   --sidebar-foreground: #1f1f1f; /* Dark text */
-  --sidebar-primary: #e5ff03; /* Primary lime */
-  --sidebar-primary-foreground: #1f1f1f; /* Dark text */
-  --sidebar-accent: #f2ff99; /* Light lime */
-  --sidebar-accent-foreground: #404040; /* Dark text */
-  --sidebar-border: #e6ff33; /* Subtle border */
-  --sidebar-ring: #e5ff03; /* Primary lime */
+  --sidebar-primary: #0284c7; /* Primary ocean blue */
+  --sidebar-primary-foreground: #ffffff; /* White text */
+  --sidebar-accent: #bae6fd; /* Light blue */
+  --sidebar-accent-foreground: #0c4a6e; /* Dark blue text */
+  --sidebar-border: #0284c7; /* Subtle border */
+  --sidebar-ring: #0284c7; /* Primary ocean blue */
 
   /* Border Radius */
   --radius: 0.625rem;
   
   /* Tailwind Shadow Override */
-  --tw-shadow-color: #e5ff03; /* Use primary color for shadows */
+  --tw-shadow-color: #0284c7; /* Use primary color for shadows */
 }
 
 * {
@@ -181,6 +181,14 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+  /* Global link styles for all content areas */
+  p a,
+  article a,
+  main a,
+  .prose a,
+  [class*="content"] a {
+    @apply text-primary hover:text-primary-dark transition-colors duration-200;
   }
 }
 

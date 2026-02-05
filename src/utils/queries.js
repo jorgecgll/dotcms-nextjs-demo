@@ -4,17 +4,20 @@ export const blogQuery = `
         identifier
         ... on Blog {
             inode
-            image {
-                fileName
-            }
             urlMap
             modDate
             urlTitle
-            teaser
             author {
                 firstName
                 lastName
                 inode
+            }
+            image {
+                title
+                idPath
+                width
+                height
+                focalPoint
             }
         }
     }

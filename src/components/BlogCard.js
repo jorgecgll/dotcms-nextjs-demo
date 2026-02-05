@@ -1,6 +1,7 @@
 import { useIsEditMode } from "@/hooks/isEditMode";
 import { editContentlet } from "@dotcms/uve";
 import Image from "next/image";
+import Link from "next/link";
 
 const dateFormatOptions = {
     year: "numeric",
@@ -9,7 +10,11 @@ const dateFormatOptions = {
 };
 
 export default function BlogCard({ blog }) {
-    const { title, image, urlMap, inode, modDate, urlTitle, teaser } = blog;
+    const { title, image, urlMap, inode, modDate, urlTitle, teaser, author } = blog;
+    const authorData = author && (Array.isArray(author) ? author[0] : author);
+    const authorName = authorData?.firstName && authorData?.lastName 
+        ? `${authorData.firstName} ${authorData.lastName}` 
+        : null;
 
     const isEditMode = useIsEditMode();
 
@@ -24,7 +29,7 @@ export default function BlogCard({ blog }) {
                 </button>
             )}
 
-            <div className="w-full aspect-video rounded-lg overflow-hidden shrink-0">
+            <Link href={urlMap} className="w-full aspect-video rounded-lg overflow-hidden shrink-0 block">
                 {image ? (
                     <picture className="relative block w-full h-full object-cover">
                         <Image
@@ -43,11 +48,11 @@ export default function BlogCard({ blog }) {
                         <span className="text-muted-foreground">No image</span>
                     </div>
                 )}
-            </div>
+            </Link>
 
             <div className="flex w-full flex-col gap-4 grow p-3">
                 <div className="text-md w-full flex flex-col gap-4">
-                    <a href={urlMap} className="font-bold text-foreground text-lg group-hover:text-[#cce600] transition-colors duration-200">
+                    <a href={urlMap} className="font-bold text-foreground text-lg group-hover:text-primary transition-colors duration-200">
                         {title}
                     </a>
                     {teaser && (
@@ -66,6 +71,11 @@ export default function BlogCard({ blog }) {
                             dateFormatOptions,
                         )}
                     </time>
+                    {authorName && (
+                        <div className="text-sm text-muted-foreground">
+                            {authorName}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

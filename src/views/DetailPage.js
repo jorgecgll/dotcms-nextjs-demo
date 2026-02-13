@@ -12,6 +12,7 @@ import {
 import { useIsEditMode } from "@/hooks/isEditMode";
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/Header";
+import ShopifyProduct from "@/components/content-types/ShopifyProduct";
 
 export function DetailPage({ pageContent }) {
     const [blockEditorClasses, setBlockEditorClasses] = useState(
@@ -130,5 +131,13 @@ const customeRenderers = {
                 <div dangerouslySetInnerHTML={{ __html: description }} />
             </div>
         );
+    },
+    dotShopifyProduct: (props) => {
+        // Extract contentlet data from block editor props
+        const contentletData = props.attrs.data;
+        
+        // Pass the contentlet data directly to ShopifyProduct component
+        // The component expects props with title and shopifyProduct fields
+        return <ShopifyProduct {...contentletData} />;
     },
 };

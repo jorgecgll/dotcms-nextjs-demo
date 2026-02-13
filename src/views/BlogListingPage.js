@@ -19,7 +19,7 @@ export function BlogListingPage(pageResponse) {
                             Blog
                         </h1>
                         <p className="text-muted-foreground text-base md:text-base lg:text-lg font-medium leading-relaxed max-w-2xl mb-8">
-                            Expert financial insights and market analysis to help you make informed investment decisions and stay ahead in today&apos;s economy.
+                            Discover amazing destinations, gear reviews, and travel tips to help you plan your perfect adventure and make the most of your travels.
                         </p>
                     </div>
                 </section>

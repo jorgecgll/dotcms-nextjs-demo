@@ -10,14 +10,13 @@ export default function Header() {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
   
   const productsItems = [
-    { name: "Chequing", href: "/products/chequing" },
-    { name: "Savings", href: "/products/savings" },
-    { name: "Credit Card", href: "/products/credit-card" },
-    { name: "Invest", href: "/products/invest" }
+    { name: "Snow Apparel", href: "/products/snow-apparel" },
+    { name: "Skis", href: "/products/skis" },
+    { name: "Snowboards", href: "/products/snowboards" },
+    { name: "Ski Boots", href: "/products/ski-boots" }
   ]
 
   const navItems = [
-    { name: "Support", href: "/support" },
     { name: "Blog", href: "/blog" },
     { name: "Contact Us", href: "/contact" }
   ]
@@ -37,7 +36,7 @@ export default function Header() {
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-3">
             <Link href="/" className="text-foreground text-xl font-semibold hover:text-[#cce600] transition-colors">
-              FinCorp
+              TravelLux
             </Link>
           </div>
           <nav className="hidden md:flex items-center gap-2">
@@ -80,8 +79,8 @@ export default function Header() {
         </div>
         <div className="flex items-center gap-4">
           <Link href="https://vercel.com/home" target="_blank" rel="noopener noreferrer" className="hidden md:block">
-            <Button className="bg-primary text-primary-foreground hover:bg-primary-dark px-6 py-2 rounded-full font-medium shadow-sm transition-colors">
-              Try for Free
+            <Button className="bg-primary text-primary-foreground hover:opacity-90 px-6 py-2 rounded-full font-medium shadow-sm transition-opacity">
+              Shop Now
             </Button>
           </Link>
           <Sheet>
@@ -121,8 +120,8 @@ export default function Header() {
                   </Link>
                 ))}
                 <Link href="https://vercel.com/home" target="_blank" rel="noopener noreferrer" className="w-full mt-4">
-                  <Button className="bg-primary text-primary-foreground hover:bg-primary-dark px-6 py-2 rounded-full font-medium shadow-sm transition-colors">
-                    Try for Free
+                  <Button className="bg-primary text-primary-foreground hover:opacity-90 px-6 py-2 rounded-full font-medium shadow-sm transition-opacity">
+                    Shop Now
                   </Button>
                 </Link>
               </nav>

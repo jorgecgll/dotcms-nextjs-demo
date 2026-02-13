@@ -24,7 +24,7 @@ export const getDotCMSPage = cache(async (path) => {
                     }
                 }`,
                 content: {
-                    blogs: blogQuery,
+                    blogs: blogQuery(),
                     navigation: navigationQuery,
                 },
                 fragments: [fragmentNav],

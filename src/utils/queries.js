@@ -1,5 +1,7 @@
-export const blogQuery = `
-    search(query: "+contenttype:Blog +live:true", limit: 9) {
+export const blogQuery = () => {
+    const siteId = process.env.NEXT_PUBLIC_DOTCMS_SITE_ID || 'SYSTEM_HOST'
+    return `
+    search(query: "+contenttype:Blog +live:true +(conhost:${siteId} conhost:SYSTEM_HOST)", limit: 9) {
         title
         identifier
         ... on Blog {
@@ -18,7 +20,8 @@ export const blogQuery = `
             }
         }
     }
-`;
+`
+}
 
 
 export const navigationQuery = `

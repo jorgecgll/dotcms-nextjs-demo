@@ -21,6 +21,10 @@ const nextConfig = {
                 source: "/dA/:path*",
                 destination: `${process.env.NEXT_PUBLIC_DOTCMS_HOST}/dA/:path*`,
             },
+            {
+                source: "/api/shopify/:path*",
+                destination: `${process.env.NEXT_PUBLIC_DOTCMS_HOST}/api/v1/shopify/:path*`,
+            },
         ];
     },
     async redirects() {

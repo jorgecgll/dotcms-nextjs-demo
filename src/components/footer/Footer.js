@@ -10,9 +10,9 @@ export default function Footer() {
       {/* Left Section: Logo, Description, Social Links */}
       <div className="flex flex-col justify-start items-start gap-8 p-4 md:p-8">
         <div className="flex gap-3 items-stretch justify-center">
-          <div className="text-center text-foreground text-xl font-semibold leading-4">FinCorp</div>
+          <div className="text-center text-foreground text-xl font-semibold leading-4">TravelLux</div>
         </div>
-        <p className="text-foreground/90 text-sm font-medium leading-[18px] text-left">Your trusted financial partner for all banking needs</p>
+        <p className="text-foreground/90 text-sm font-medium leading-[18px] text-left">Your trusted partner for premium travel gear and adventure essentials</p>
         <div className="flex justify-start items-start gap-3">
           <a href="#" aria-label="Twitter" className="w-4 h-4 flex items-center justify-center">
             <Twitter className="w-full h-full text-muted-foreground" />
@@ -30,31 +30,31 @@ export default function Footer() {
         <div className="flex flex-col justify-start items-start gap-3">
           <h3 className="text-muted-foreground text-sm font-medium leading-5">Products</h3>
           <div className="flex flex-col justify-end items-start gap-2">
-            <Link href="/products/chequing" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Chequing
+            <Link href="/products/snow-apparel" className="text-foreground text-sm font-normal leading-5 hover:underline">
+              Snow Apparel
             </Link>
-            <Link href="/products/savings" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Savings
+            <Link href="/products/skis" className="text-foreground text-sm font-normal leading-5 hover:underline">
+              Skis
             </Link>
-            <Link href="/products/credit-card" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Credit Card
+            <Link href="/products/snowboards" className="text-foreground text-sm font-normal leading-5 hover:underline">
+              Snowboards
             </Link>
-            <Link href="/products/invest" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Invest
+            <Link href="/products/ski-boots" className="text-foreground text-sm font-normal leading-5 hover:underline">
+              Ski Boots
             </Link>
           </div>
         </div>
         <div className="flex flex-col justify-start items-start gap-3">
-          <h3 className="text-muted-foreground text-sm font-medium leading-5">Support</h3>
+          <h3 className="text-muted-foreground text-sm font-medium leading-5">Travel</h3>
           <div className="flex flex-col justify-center items-start gap-2">
-            <Link href="/support" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Help Center
+            <Link href="/travel/destinations" className="text-foreground text-sm font-normal leading-5 hover:underline">
+              Destinations
             </Link>
-            <Link href="/support/faq" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              FAQ
+            <Link href="/travel/guides" className="text-foreground text-sm font-normal leading-5 hover:underline">
+              Travel Guides
             </Link>
-            <Link href="/support/contact" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Contact Support
+            <Link href="/travel/tips" className="text-foreground text-sm font-normal leading-5 hover:underline">
+              Travel Tips
             </Link>
           </div>
         </div>
@@ -78,8 +78,8 @@ export default function Footer() {
             <Link href="/contact" className="text-foreground text-sm font-normal leading-5 hover:underline">
               Contact Us
             </Link>
-            <Link href="/contact/branches" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Branch Locator
+            <Link href="/contact/stores" className="text-foreground text-sm font-normal leading-5 hover:underline">
+              Store Locator
             </Link>
             <Link href="/contact/careers" className="text-foreground text-sm font-normal leading-5 hover:underline">
               Careers

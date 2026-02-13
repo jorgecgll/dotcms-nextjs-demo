@@ -12,6 +12,8 @@ import VtlInclude from "./VtlInclude";
 import WebPageContent from "./WebPageContent";
 import Card from "./Card";
 import FaqWidget from "./FaqWidget";
+import ShopifyCollection from "./ShopifyCollection";
+import ShopifyProduct from "./ShopifyProduct";
 
 export const pageComponents = {
     Banner: Banner,
@@ -28,4 +30,6 @@ export const pageComponents = {
     StoreProductList: StoreProductList,
     VtlInclude: VtlInclude,
     webPageContent: WebPageContent,
+    dotShopifyCollection: ShopifyCollection,
+    dotShopifyProduct: ShopifyProduct,
 };

@@ -5,7 +5,7 @@ import Image from "next/image"
 import { DotCMSEditableText } from "@dotcms/react";
 
 export default function Banner(props) {
-    const { title, caption, inode, image, link, buttonText } = props;
+    const { title, caption, image, link, buttonText } = props;
     
     return (
         <section className="w-full py-12 md:py-16 lg:py-20">
@@ -26,7 +26,7 @@ export default function Banner(props) {
                 {/* CTA Button */}
                 {link && buttonText && (
                     <Link href={link} target="_blank" rel="noopener noreferrer">
-                        <Button className="bg-primary text-primary-foreground hover:bg-primary-dark px-8 py-3 rounded-full font-medium text-base shadow-lg ring-1 ring-white/10">
+                        <Button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-full font-medium text-base shadow-lg ring-1 ring-white/10 transition-colors">
                             {buttonText}
                         </Button>
                     </Link>
@@ -38,11 +38,11 @@ export default function Banner(props) {
                 <div className="max-w-6xl mx-auto px-4 mt-12">
                     <div className="bg-gray-100 rounded-2xl p-2">
                         <Image
-                            src={inode}
+                            src={image?.idPath || image?.identifier || image}
                             width={1200}
-                            height={600}
+                            height={500}
                             alt={title}
-                            className="w-full h-auto object-cover rounded-xl"
+                            className="w-full h-auto max-h-[500px] object-cover rounded-xl"
                         />
                     </div>
                 </div>
@@ -50,4 +50,3 @@ export default function Banner(props) {
         </section>
     )
 }
-

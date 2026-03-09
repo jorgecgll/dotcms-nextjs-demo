@@ -100,7 +100,7 @@ export function DetailPage({ pageContent }) {
                             <DotCMSBlockEditorRenderer
                                 blocks={body}
                                 className={blockEditorClasses}
-                                customRenderers={customeRenderers}
+                                customRenderers={customRenderers}
                             />
                         </div>
                     </div>
@@ -112,7 +112,7 @@ export function DetailPage({ pageContent }) {
     );
 }
 
-const customeRenderers = {
+const customRenderers = {
     Activity: (props) => {
         const { title, description } = props.attrs.data;
 

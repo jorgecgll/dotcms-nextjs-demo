@@ -28,11 +28,4 @@ export const pageComponents = {
         </section>
     ),
     webPageContent: WebPageContent,
-
-    // FaqWidget: FaqWidget,
-    // calendarEvent: CalendarEvent,
-    // CallToAction: Card,
-    // PageForm: PageForm,
-    // Product: Product,
-    // StoreProductList: StoreProductList,
 };

@@ -6,8 +6,6 @@ import { DotCMSEditableText } from "@dotcms/react";
 
 export default function Banner(props) {
     const { title, caption, inode, image, link, buttonText } = props;
-
-    console.log(image);
     
     return (
         <section className="w-full py-12 md:py-16 lg:py-20">

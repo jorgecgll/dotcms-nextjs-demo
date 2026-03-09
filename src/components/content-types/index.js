@@ -3,6 +3,7 @@ import Banner from "./Banner";
 import BannerCarousel from "./BannerCarousel";
 import ImageComponent from "./Image";
 import VtlInclude from "./VtlInclude";
+import Video from "./Video";
 import WebPageContent from "./WebPageContent";
 import BlogList from "../BlogList";
 
@@ -12,6 +13,7 @@ export const pageComponents = {
     CustomNoComponent: CustomNoComponent,
     Image: ImageComponent,
     VtlInclude: VtlInclude,
+    Video: Video,
     webPageContent: WebPageContent,
     BlogList: (props) => (
         <section className="w-full py-4 mb-16">

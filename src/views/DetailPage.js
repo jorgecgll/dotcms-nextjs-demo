@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { enableBlockEditorInline } from "@dotcms/uve";
+import { customRenderers } from "@/utils/blockEditorRenderers";
 import {
     DotCMSBlockEditorRenderer,
     useEditableDotCMSPage,
@@ -112,25 +113,3 @@ export function DetailPage({ pageContent }) {
     );
 }
 
-const customRenderers = {
-    Activity: (props) => {
-        const { title, description } = props.attrs.data;
-
-        return (
-            <div>
-                <h1>{title}</h1>
-                <p>{description}</p>
-            </div>
-        );
-    },
-    Product: (props) => {
-        const { title, description } = props.attrs.data;
-
-        return (
-            <div>
-                <h1>{title}</h1>
-                <div dangerouslySetInnerHTML={{ __html: description }} />
-            </div>
-        );
-    },
-};

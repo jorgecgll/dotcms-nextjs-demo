@@ -5,6 +5,7 @@ import { enableBlockEditorInline } from "@dotcms/uve";
 import { DotCMSBlockEditorRenderer } from "@dotcms/react";
 
 import { useIsEditMode } from "@/hooks/isEditMode";
+import { customRenderers } from "@/utils/blockEditorRenderers";
 
 function WebPageContent(props) {
     const { body } = props;
@@ -35,6 +36,7 @@ function WebPageContent(props) {
                     <DotCMSBlockEditorRenderer
                         blocks={body}
                         className={blockEditorClasses}
+                        customRenderers={customRenderers}
                     />
                 </div>
             </div>

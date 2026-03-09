@@ -6,7 +6,7 @@ export default function NotFound() {
             <section>
                 <div className="py-8 px-4 mx-auto max-w-5xl lg:py-16 lg:px-6">
                     <div className="mx-auto max-w-2xl text-center">
-                        <h1 className="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl text-primary-600">
+                        <h1 className="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl text-primary">
                             404
                         </h1>
                         <p className="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl">
@@ -17,7 +17,7 @@ export default function NotFound() {
                             find lots to explore on the home page.{" "}
                         </p>
                         <Link href="/">
-                            <div className="inline-flex text-white bg-purple-600 hover:bg-purple-800 focus:ring-4 focus:outline-hidden focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-4">
+                            <div className="inline-flex text-white bg-primary hover:bg-primary-dark focus:ring-4 focus:outline-hidden focus:ring-primary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-4">
                                 Return Home
                             </div>
                         </Link>

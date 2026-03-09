@@ -1,7 +1,7 @@
 /**
  * Search content using dotAI search API
  */
-export async function searchContent(query, indexName = "Blog", limit = 10) {
+export async function searchContent(query, indexName = "default", limit = 10) {
     if (!query.trim()) throw new Error("Search query is required");
     if (!process.env.NEXT_PUBLIC_DOTCMS_HOST || !process.env.NEXT_PUBLIC_DOTCMS_AUTH_TOKEN) {
         throw new Error("dotCMS configuration is missing");
@@ -27,18 +27,13 @@ export async function searchContent(query, indexName = "Blog", limit = 10) {
 
     const data = await response.json();
     
-    // Log the full response to see what we're working with
-    console.log('Full dotAI API response:', JSON.stringify(data, null, 2));
-    
     return data.dotCMSResults
         ?.sort((a, b) => (a.matches?.[0]?.distance || 0) - (b.matches?.[0]?.distance || 0))
         ?.map((result, index) => {
-        console.log(`Result ${index}:`, JSON.stringify(result, null, 2));
         const contentlet = result.contentlet || result;
-        console.log(`Contentlet ${index}:`, JSON.stringify(contentlet, null, 2));
         return {
             title: contentlet.title || contentlet.urlTitle || 'Untitled',
-            excerpt: contentlet.teaser || contentlet.blogContent || 'No description available',
+            excerpt: contentlet.teaser || contentlet.body || 'No description available',
             url: contentlet.urlMap || contentlet.urlTitle || '#',
             identifier: contentlet.identifier,
             modDate: contentlet.modDate,
@@ -74,8 +69,8 @@ export async function generateAIResponse(prompt) {
                 responseLengthTokens: 500,
                 language: 1,
                 stream: false,
-                fieldVar: "blogContent",
-                indexName: "Blog",
+                fieldVar: "body",
+                indexName: "default",
                 threshold: 0.25,
                 temperature: 0.7,
                 model: "gpt-5",
@@ -86,9 +81,6 @@ export async function generateAIResponse(prompt) {
         if (!response.ok) throw new Error(`AI generation failed: ${response.status}`);
 
         const data = await response.json();
-        
-        // Log the full response for debugging
-        console.log('AI Completions Response:', JSON.stringify(data, null, 2));
         
         // Extract the AI response and sources
         const aiResponse = data.openAiResponse?.choices?.[0]?.message?.content || 'No response generated';

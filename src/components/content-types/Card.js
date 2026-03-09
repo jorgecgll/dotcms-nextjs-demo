@@ -26,7 +26,7 @@ const BentoCard = ({ title, description, image, inode, ctaText = "Learn more" })
     {/* Content section */}
     <div className="flex w-full flex-col gap-4 grow p-3">
       <div className="text-md w-full flex flex-col gap-4">
-        <span className="font-bold text-foreground text-lg group-hover:text-[#cce600] transition-colors duration-200">
+        <span className="font-bold text-foreground text-lg group-hover:text-primary-dark transition-colors duration-200">
           {title}
         </span>
         <div className="line-clamp-4">

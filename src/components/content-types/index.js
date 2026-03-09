@@ -1,31 +1,31 @@
 import { CustomNoComponent } from "./Empty";
 import Banner from "./Banner";
 import BannerCarousel from "./BannerCarousel";
-import CalendarEvent from "./CalendarEvent";
-import CategoryFilter from "./CategoryFilter";
-import SimpleWidget from "./SimpleWidget";
 import ImageComponent from "./Image";
-import PageForm from "./PageForm";
-import Product from "./Product";
-import StoreProductList from "./StoreProductList";
 import VtlInclude from "./VtlInclude";
+import Video from "./Video";
 import WebPageContent from "./WebPageContent";
-import Card from "./Card";
-import FaqWidget from "./FaqWidget";
+import BlogList from "../BlogList";
 
 export const pageComponents = {
     Banner: Banner,
     BannerCarousel: BannerCarousel,
-    FaqWidget: FaqWidget,
-    calendarEvent: CalendarEvent,
-    CallToAction: Card,
-    CategoryFilter: CategoryFilter,
     CustomNoComponent: CustomNoComponent,
     Image: ImageComponent,
-    PageForm: PageForm,
-    Product: Product,
-    SimpleWidget: SimpleWidget,
-    StoreProductList: StoreProductList,
     VtlInclude: VtlInclude,
+    Video: Video,
+    webPageContent: WebPageContent,
+    BlogList: (props) => (
+        <section className="w-full py-4 mb-16">
+            <div className="max-w-6xl mx-auto px-4">
+                {props.title && (
+                    <h2 className="text-foreground text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight mb-6">
+                        {props.title}
+                    </h2>
+                )}
+                <BlogList {...props} />
+            </div>
+        </section>
+    ),
     webPageContent: WebPageContent,
 };

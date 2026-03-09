@@ -1,7 +1,7 @@
 "use client";
 import { useEditableDotCMSPage } from "@dotcms/react";
 import Header from "@/components/Header";
-import BlogCard from "@/components/BlogCard";
+import BlogList from "@/components/BlogList";
 import Footer from "@/components/footer/Footer";
 
 export function BlogListingPage(pageResponse) {
@@ -19,26 +19,14 @@ export function BlogListingPage(pageResponse) {
                             Blog
                         </h1>
                         <p className="text-muted-foreground text-base md:text-base lg:text-lg font-medium leading-relaxed max-w-2xl mb-8">
-                            Expert financial insights and market analysis to help you make informed investment decisions and stay ahead in today&apos;s economy.
+                            Discover amazing destinations, travel tips, and unforgettable adventures from around the world. Get inspired for your next journey.
                         </p>
                     </div>
                 </section>
 
 
                 <div className="max-w-6xl mx-auto px-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {blogs.map((blog) => (
-                            <BlogCard key={blog.identifier} blog={blog} />
-                        ))}
-                    </div>
-
-                    {blogs.length === 0 && (
-                        <div className="text-center py-8">
-                            <p className="text-muted-foreground">
-                                No blogs available.
-                            </p>
-                        </div>
-                    )}
+                    <BlogList blogs={blogs} />
                 </div>
             </main>
             <Footer {...content} />

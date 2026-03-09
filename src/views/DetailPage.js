@@ -19,9 +19,11 @@ export function DetailPage({ pageContent }) {
     );
     const { pageAsset, content } = useEditableDotCMSPage(pageContent);
     const { urlContentMap } = pageAsset;
-    const { blogContent } = urlContentMap || {};
+    const { body } = urlContentMap || {};
     const navigation = content.navigation;
     const isEditMode = useIsEditMode();
+
+    console.log(urlContentMap);
 
     useEffect(() => {
         if (isEditMode) {
@@ -33,7 +35,7 @@ export function DetailPage({ pageContent }) {
 
     const handleClick = () => {
         if (isEditMode) {
-            enableBlockEditorInline(urlContentMap, "blogContent");
+            enableBlockEditorInline(urlContentMap, "body");
         }
     };
 
@@ -52,7 +54,7 @@ export function DetailPage({ pageContent }) {
                         )}
 
                         <div className="flex items-center gap-4 mb-8 pb-6 border-gray-100">
-                            {urlContentMap?.author?.firstName && urlContentMap?.author?.lastName && (
+                            {urlContentMap?.author[0]?.firstName && (
                                 <div className="flex items-center gap-2">
                                     <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                                         <span className="text-primary-foreground text-sm font-semibold">
@@ -60,7 +62,7 @@ export function DetailPage({ pageContent }) {
                                         </span>
                                     </div>
                                     <span className="text-foreground font-medium">
-                                        {urlContentMap.author}
+                                        {urlContentMap.author[0].firstName} {urlContentMap.author[0].lastName}
                                     </span>
                                 </div>
                             )}
@@ -81,7 +83,7 @@ export function DetailPage({ pageContent }) {
                         </div>
 
                         {urlContentMap?.image && (
-                            <div className="mb-8">
+                            <div className="mb-8 -mx-6 sm:-mx-8 md:-mx-12 lg:-mx-16">
                                 <div className="bg-gray-100 rounded-2xl p-2">
                                     <Image
                                         className="w-full h-auto object-cover rounded-xl"
@@ -96,9 +98,9 @@ export function DetailPage({ pageContent }) {
 
                         <div onClick={handleClick} className="[&_p]:text-muted-foreground [&_p]:text-sm [&_p]:md:text-base [&_p]:lg:text-base [&_p]:font-normal [&_p]:leading-relaxed [&_p]:mb-4 [&_h1]:text-foreground [&_h1]:text-lg [&_h1]:md:text-xl [&_h1]:lg:text-2xl [&_h1]:font-semibold [&_h1]:leading-tight [&_h1]:mb-6 [&_h1]:mt-8 [&_h2]:text-foreground [&_h2]:text-lg [&_h2]:md:text-xl [&_h2]:lg:text-2xl [&_h2]:font-semibold [&_h2]:leading-tight [&_h2]:mb-6 [&_h2]:mt-8 [&_h3]:text-foreground [&_h3]:text-base [&_h3]:md:text-lg [&_h3]:lg:text-xl [&_h3]:font-semibold [&_h3]:leading-tight [&_h3]:mb-4 [&_h3]:mt-6 [&_ul]:mb-4 [&_ul]:mt-4 [&_ol]:mb-4 [&_ol]:mt-4 [&_li]:text-muted-foreground [&_li]:text-sm [&_li]:md:text-base [&_li]:lg:text-base [&_li]:font-normal [&_li]:leading-relaxed [&_li]:mb-2 [&_ul]:pl-6 [&_ol]:pl-6 [&_ul]:list-disc [&_ol]:list-decimal [&_a]:text-primary [&_a]:hover:text-primary-dark [&_strong]:text-foreground [&_strong]:font-semibold [&_img]:rounded-xl [&_img]:my-8 [&_img]:w-full [&_img]:h-auto [&_img]:object-cover">
                             <DotCMSBlockEditorRenderer
-                                blocks={blogContent}
+                                blocks={body}
                                 className={blockEditorClasses}
-                                customRenderers={customeRenderers}
+                                customRenderers={customRenderers}
                             />
                         </div>
                     </div>
@@ -110,7 +112,7 @@ export function DetailPage({ pageContent }) {
     );
 }
 
-const customeRenderers = {
+const customRenderers = {
     Activity: (props) => {
         const { title, description } = props.attrs.data;
 

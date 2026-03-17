@@ -64,6 +64,10 @@ export const getDotCMSPage = cache(async (path) => {
                                 title
                                 inode
                             }
+                            image {
+                                idPath
+                                title
+                            }
                         }
                     }
                 `,

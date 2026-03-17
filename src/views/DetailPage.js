@@ -83,12 +83,12 @@ export function DetailPage({ pageContent }) {
                             )}
                         </div>
 
-                        {urlContentMap?.image && (
+                        {urlContentMap?.image?.idPath && (
                             <div className="mb-8 -mx-6 sm:-mx-8 md:-mx-12 lg:-mx-16">
                                 <div className="bg-gray-100 rounded-2xl p-2">
                                     <Image
                                         className="w-full h-auto object-cover rounded-xl"
-                                        src={urlContentMap.inode}
+                                        src={urlContentMap.image.idPath}
                                         width={800}
                                         height={400}
                                         alt={urlContentMap?.title || "Blog post image"}

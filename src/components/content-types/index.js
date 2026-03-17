@@ -1,6 +1,7 @@
 import { CustomNoComponent } from "./Empty";
 import Banner from "./Banner";
 import BannerCarousel from "./BannerCarousel";
+import Code from "./Code";
 import ImageComponent from "./Image";
 import VtlInclude from "./VtlInclude";
 import Video from "./Video";
@@ -9,6 +10,7 @@ import BlogList from "../BlogList";
 
 export const pageComponents = {
     Banner: Banner,
+    Code: Code,
     BannerCarousel: BannerCarousel,
     CustomNoComponent: CustomNoComponent,
     Image: ImageComponent,

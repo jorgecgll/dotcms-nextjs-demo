@@ -3,10 +3,17 @@
 import React, { useState, useEffect } from "react"
 import { DotCMSEditableText } from "@dotcms/react"
 
+function resolveDotCMSImageSrc (value) {
+    if (!value) return null
+    if (typeof value === "string") return value
+    return value.idPath || value.identifier || value.path || null
+}
+
 export default function ShopifyProduct(props) {
-    const { 
-        title, 
+    const {
+        title,
         shopifyProduct,
+        shopifyProductImage,
         alternateImage
     } = props
 
@@ -105,14 +112,19 @@ export default function ShopifyProduct(props) {
         <section className="w-full py-8 md:py-12">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="max-w-2xl mx-auto">
-                    <ShopifyProductCard product={productData} title={title} alternateImage={alternateImage} />
+                    <ShopifyProductCard
+                        product={productData}
+                        title={title}
+                        shopifyProductImage={shopifyProductImage}
+                        alternateImage={alternateImage}
+                    />
                 </div>
             </div>
         </section>
     )
 }
 
-function ShopifyProductCard({ product, title, alternateImage }) {
+function ShopifyProductCard({ product, title, shopifyProductImage, alternateImage }) {
     // Handle Shopify GraphQL product structure
     const productTitle = product.title || product.name || title
     const productHandle = product.handle
@@ -153,20 +165,20 @@ function ShopifyProductCard({ product, title, alternateImage }) {
     const hasDiscount = displayComparePrice && displayPrice && 
                        parseFloat(productComparePrice) > parseFloat(productPrice)
 
-    // Get image source - prioritize alternateImage if present, otherwise use Shopify product image
-    // alternateImage might be a string path or an object with idPath/identifier
-    const alternateImageSrc = alternateImage?.idPath || 
-                              alternateImage?.identifier || 
-                              alternateImage
-    
-    const productImageSrc = productImage?.url || 
-                           productImage?.src || 
-                           productImage?.idPath || 
-                           productImage?.identifier ||
-                           productImage
-    
-    // Use alternateImage if present, otherwise fall back to product image
-    const imageSrc = alternateImageSrc || productImageSrc
+    // dotCMS field shopifyProductImage (Binary) — prefer idPath from CMS over Shopify CDN
+    const shopifyProductImageSrc = resolveDotCMSImageSrc(shopifyProductImage)
+    const alternateImageSrc = resolveDotCMSImageSrc(alternateImage)
+
+    const productImageSrc =
+        (typeof productImage === "string" ? productImage : null) ||
+        productImage?.url ||
+        productImage?.src ||
+        resolveDotCMSImageSrc(productImage)
+
+    const imageSrc =
+        shopifyProductImageSrc ||
+        alternateImageSrc ||
+        productImageSrc
 
     return (
         <div className="relative">

@@ -1,5 +1,12 @@
+const blogSearchLucene = (() => {
+    const siteId = process.env.NEXT_PUBLIC_DOTCMS_SITE_ID?.trim()
+    const base = '+contenttype:Blog +live:true'
+    if (!siteId) return base
+    return `${base} +conHost:${siteId}`
+})()
+
 export const blogQuery = `
-    search(query: "+contenttype:Blog +live:true", limit: 9) {
+    search(query: "${blogSearchLucene}", limit: 9) {
         title
         identifier
         ... on Blog {

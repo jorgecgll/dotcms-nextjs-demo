@@ -43,6 +43,41 @@ export function createBannerStyleEditorSchemas (origin) {
                                 { label: "Medium", value: "md" },
                                 { label: "Large", value: "lg" }
                             ]
+                        }),
+                        styleEditorField.radio({
+                            id: "heading-color",
+                            label: "Heading color",
+                            columns: 2,
+                            options: [
+                                {
+                                    label: "Charcoal",
+                                    value: "foreground",
+                                    imageURL: img(
+                                        "banner-heading-color-foreground.svg"
+                                    )
+                                },
+                                {
+                                    label: "Brand blue",
+                                    value: "primary",
+                                    imageURL: img(
+                                        "banner-heading-color-primary.svg"
+                                    )
+                                },
+                                {
+                                    label: "Deep blue",
+                                    value: "primary-dark",
+                                    imageURL: img(
+                                        "banner-heading-color-primary-dark.svg"
+                                    )
+                                },
+                                {
+                                    label: "Navy",
+                                    value: "secondary-foreground",
+                                    imageURL: img(
+                                        "banner-heading-color-secondary-foreground.svg"
+                                    )
+                                }
+                            ]
                         })
                     ]
                 },

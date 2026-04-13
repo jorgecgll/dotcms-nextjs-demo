@@ -50,6 +50,15 @@ const HEADLINE_ALIGN_CLASS = {
     right: "text-right"
 }
 
+const HEADING_COLOR_CLASS = {
+    foreground: "text-foreground",
+    primary: "text-primary",
+    "primary-dark": "text-primary-dark",
+    "secondary-foreground": "text-secondary-foreground"
+}
+
+const HEADING_COLOR_VALUES = new Set(Object.keys(HEADING_COLOR_CLASS))
+
 const CTA_VARIANT_VALUES = new Set(["default", "outline", "secondary"])
 
 const MEDIA_LAYOUT_VALUES = new Set([
@@ -71,6 +80,13 @@ function resolveMediaLayout (value) {
         return value
     }
     return "image-bottom"
+}
+
+function resolveHeadingColor (value) {
+    if (HEADING_COLOR_VALUES.has(value)) {
+        return HEADING_COLOR_CLASS[value]
+    }
+    return HEADING_COLOR_CLASS.foreground
 }
 
 function getStyleEditorOrigin () {
@@ -146,6 +162,10 @@ export default function Banner (props) {
     const headingClass =
         HEADING_SIZE_CLASS[headingSize] ?? HEADING_SIZE_CLASS.lg
 
+    const headingColorClass = resolveHeadingColor(
+        dotStyleProperties?.["heading-color"]
+    )
+
     const captionSize = dotStyleProperties?.["caption-size"]
     const captionClass =
         CAPTION_SIZE_CLASS[captionSize] ?? CAPTION_SIZE_CLASS.lg
@@ -181,7 +201,8 @@ export default function Banner (props) {
         >
             <h1
                 className={cn(
-                    "text-foreground mb-4 font-semibold leading-tight",
+                    "mb-4 font-semibold leading-tight",
+                    headingColorClass,
                     !isSplit && HEADLINE_ALIGN_CLASS[textAlign],
                     headingClass
                 )}

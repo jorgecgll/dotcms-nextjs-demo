@@ -12,7 +12,7 @@ export function Page({ pageContent }) {
 
     return (
         <div className="">
-            {pageAsset?.layout.header && (
+            {pageAsset?.layout?.header && (
                 <Header navItems={navigation?.children} />
             )}
 
@@ -24,7 +24,7 @@ export function Page({ pageContent }) {
                 />
             </main>
 
-            {pageAsset?.layout.footer && <Footer {...content} />}
+            {pageAsset?.layout?.footer && <Footer {...content} />}
         </div>
     );
 }

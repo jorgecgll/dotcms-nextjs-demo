@@ -18,13 +18,14 @@ export function DetailPage({ pageContent }) {
     const [blockEditorClasses, setBlockEditorClasses] = useState(
         "max-w-none text-muted-foreground text-base md:text-base lg:text-lg font-medium leading-relaxed",
     );
-    const { pageAsset, content } = useEditableDotCMSPage(pageContent);
-    const { urlContentMap } = pageAsset;
+    const { pageAsset, content = {} } = useEditableDotCMSPage(pageContent);
+    const { urlContentMap } = pageAsset || {};
+    const primaryAuthor = urlContentMap?.author?.[0];
     const { body } = urlContentMap || {};
     const navigation = content.navigation;
     const isEditMode = useIsEditMode();
 
-    console.log(urlContentMap);
+    console.log("urlContentMap", urlContentMap);
 
     useEffect(() => {
         if (isEditMode) {
@@ -42,7 +43,7 @@ export function DetailPage({ pageContent }) {
 
     return (
         <div className="">
-            {pageAsset?.layout.header && (
+            {pageAsset?.layout?.header && (
                 <Header navItems={navigation?.children} />
             )}
             <main className="container m-auto">
@@ -55,7 +56,7 @@ export function DetailPage({ pageContent }) {
                         )}
 
                         <div className="flex items-center gap-4 mb-8 pb-6 border-gray-100">
-                            {urlContentMap?.author[0]?.firstName && (
+                            {primaryAuthor?.firstName && (
                                 <div className="flex items-center gap-2">
                                     <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                                         <span className="text-primary-foreground text-sm font-semibold">
@@ -63,7 +64,7 @@ export function DetailPage({ pageContent }) {
                                         </span>
                                     </div>
                                     <span className="text-foreground font-medium">
-                                        {urlContentMap.author[0].firstName} {urlContentMap.author[0].lastName}
+                                        {primaryAuthor.firstName} {primaryAuthor.lastName}
                                     </span>
                                 </div>
                             )}
@@ -108,7 +109,7 @@ export function DetailPage({ pageContent }) {
                 </article>
             </main>
 
-            {pageAsset?.layout.footer && <Footer {...content} />}
+            {pageAsset?.layout?.footer && <Footer {...content} />}
         </div>
     );
 }

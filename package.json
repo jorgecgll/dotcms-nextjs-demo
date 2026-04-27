@@ -9,11 +9,11 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@dotcms/client": "^1.2.5",
-        "@dotcms/experiments": "^1.2.5",
-        "@dotcms/react": "^1.2.5",
-        "@dotcms/types": "^1.2.5",
-        "@dotcms/uve": "^1.2.5",
+        "@dotcms/client": "^1.5.0",
+        "@dotcms/experiments": "^1.5.0",
+        "@dotcms/react": "^1.5.0",
+        "@dotcms/types": "^1.5.0",
+        "@dotcms/uve": "^1.5.0",
         "@radix-ui/react-dialog": "^1.1.15",
         "@radix-ui/react-slot": "^1.2.3",
         "@tinymce/tinymce-react": "6.2.1",

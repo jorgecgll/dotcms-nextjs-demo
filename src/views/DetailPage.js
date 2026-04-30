@@ -13,6 +13,7 @@ import { useIsEditMode } from "@/hooks/isEditMode";
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/Header";
 import ShopifyProduct from "@/components/content-types/ShopifyProduct";
+import { resolveDotCMSImageSrc } from "@/utils/dotcmsAssetUrl";
 
 export function DetailPage({ pageContent }) {
     const [blockEditorClasses, setBlockEditorClasses] = useState(
@@ -21,7 +22,8 @@ export function DetailPage({ pageContent }) {
     const { pageAsset, content } = useEditableDotCMSPage(pageContent);
     const { urlContentMap } = pageAsset;
     const { blogContent } = urlContentMap || {};
-    const navigation = content.navigation;
+    const blogHeroSrc = resolveDotCMSImageSrc(urlContentMap?.image);
+    const navigation = content?.navigation;
     const isEditMode = useIsEditMode();
 
     useEffect(() => {
@@ -81,12 +83,12 @@ export function DetailPage({ pageContent }) {
                             )}
                         </div>
 
-                        {urlContentMap?.image && (
+                        {blogHeroSrc && (
                             <div className="mb-8">
                                 <div className="bg-gray-100 rounded-2xl p-2">
                                     <Image
                                         className="w-full h-auto object-cover rounded-xl"
-                                        src={urlContentMap.inode}
+                                        src={blogHeroSrc}
                                         width={800}
                                         height={400}
                                         alt={urlContentMap?.title || "Blog post image"}
@@ -113,8 +115,9 @@ export function DetailPage({ pageContent }) {
 
 const customeRenderers = {
     Activity: (props) => {
-        const { title, description } = props.attrs.data;
-
+        const data = props.node?.attrs?.data;
+        if (!data) return null;
+        const { title, description } = data;
         return (
             <div>
                 <h1>{title}</h1>
@@ -123,8 +126,9 @@ const customeRenderers = {
         );
     },
     Product: (props) => {
-        const { title, description } = props.attrs.data;
-
+        const data = props.node?.attrs?.data;
+        if (!data) return null;
+        const { title, description } = data;
         return (
             <div>
                 <h1>{title}</h1>
@@ -133,11 +137,8 @@ const customeRenderers = {
         );
     },
     dotShopifyProduct: (props) => {
-        // Extract contentlet data from block editor props
-        const contentletData = props.attrs.data;
-        
-        // Pass the contentlet data directly to ShopifyProduct component
-        // The component expects props with title and shopifyProduct fields
+        const contentletData = props.node?.attrs?.data;
+        if (!contentletData) return null;
         return <ShopifyProduct {...contentletData} />;
     },
 };

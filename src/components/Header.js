@@ -36,7 +36,7 @@ export default function Header() {
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-3">
             <Link href="/" className="text-foreground text-xl font-semibold hover:text-[#cce600] transition-colors">
-              TravelLux
+              Neenah
             </Link>
           </div>
           <nav className="hidden md:flex items-center gap-2">

@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react"
 import { DotCMSEditableText } from "@dotcms/react"
 
+import { normalizeDotCMSAssetUrl } from "@/utils/dotcmsAssetUrl"
+
 export default function ShopifyCollection(props) {
     const { 
         title, 
@@ -38,25 +40,22 @@ export default function ShopifyCollection(props) {
                 setLoading(true)
                 setError(null)
 
-                const dotcmsUrl = process.env.NEXT_PUBLIC_DOTCMS_HOST
+                const baseUrl = (process.env.NEXT_PUBLIC_DOTCMS_HOST || "").trim().replace(/\/$/, "")
                 const authToken = process.env.NEXT_PUBLIC_DOTCMS_AUTH_TOKEN
 
-                if (!dotcmsUrl || !authToken) {
-                    throw new Error('dotCMS configuration missing. Please set NEXT_PUBLIC_DOTCMS_HOST and NEXT_PUBLIC_DOTCMS_AUTH_TOKEN')
+                if (!baseUrl || !authToken) {
+                    throw new Error('Set NEXT_PUBLIC_DOTCMS_HOST and NEXT_PUBLIC_DOTCMS_AUTH_TOKEN in .env.local')
                 }
 
-                // Normalize URL to avoid double slashes
-                const baseUrl = dotcmsUrl.replace(/\/$/, '')
-                
-                // Call dotCMS Shopify REST API directly using the env variable
                 const apiUrl = `${baseUrl}/api/v1/shopify/collection/?id=${encodeURIComponent(collectionConfig.id)}`
-                
+
                 const response = await fetch(apiUrl, {
                     headers: {
-                        'Authorization': `Bearer ${authToken}`,
-                        'Content-Type': 'application/json'
+                        Authorization: `Bearer ${authToken}`,
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
                     },
-                    cache: 'no-store'
+                    cache: 'no-store',
                 })
 
                 if (!response.ok) {
@@ -211,11 +210,17 @@ function ShopifyProductCard({ product }) {
                        parseFloat(productComparePrice) > parseFloat(productPrice)
 
     // Get image source - Shopify GraphQL images have url property
-    const imageSrc = productImage?.url || 
-                     productImage?.src || 
-                     productImage?.idPath || 
-                     productImage?.identifier ||
-                     productImage
+    const rawImageSrc =
+        productImage?.url ||
+        productImage?.src ||
+        productImage?.idPath ||
+        productImage?.identifier ||
+        (typeof productImage === "string" ? productImage : null)
+    const imageSrc = rawImageSrc != null
+        ? normalizeDotCMSAssetUrl(
+            typeof rawImageSrc === "string" ? rawImageSrc : String(rawImageSrc),
+        )
+        : null
 
     return (
         <div className="relative">

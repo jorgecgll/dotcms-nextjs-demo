@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150" fill="none">
+  <title>Lime heading</title>
+  <rect width="200" height="150" rx="8" fill="#fdfdfb"/>
+  <rect x="50" y="40" width="100" height="70" rx="10" fill="#e5ff03" stroke="#cce600" stroke-width="1.5"/>
+</svg>

@@ -14,6 +14,7 @@ import Card from "./Card";
 import FaqWidget from "./FaqWidget";
 import ShopifyCollection from "./ShopifyCollection";
 import ShopifyProduct from "./ShopifyProduct";
+import Video from "./Video";
 
 export const pageComponents = {
     Banner: Banner,
@@ -29,6 +30,7 @@ export const pageComponents = {
     SimpleWidget: SimpleWidget,
     StoreProductList: StoreProductList,
     VtlInclude: VtlInclude,
+    Video: Video,
     webPageContent: WebPageContent,
     dotShopifyCollection: ShopifyCollection,
     dotShopifyProduct: ShopifyProduct,

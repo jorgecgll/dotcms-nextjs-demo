@@ -185,8 +185,23 @@ body {
 }
 
 
+/* dotCMS UVE / layout rows: keep in sync with @theme --container-screens-2xl */
+@keyframes video-poster-shimmer {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(4%, -2%) scale(1.05);
+  }
+}
+
+.video-poster-shimmer {
+  animation: video-poster-shimmer 4s ease-in-out infinite;
+}
+
 .dot-row-container {
-  max-width: 1160px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 

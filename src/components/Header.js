@@ -35,8 +35,12 @@ export default function Header() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-3">
-            <Link href="/" className="text-foreground text-xl font-semibold hover:text-[#cce600] transition-colors">
-              Neenah
+            <Link href="/" aria-label="Barnes & Noble / University of Michigan home">
+              <img
+                src="/logo-barnes.svg"
+                alt="Barnes & Noble / University of Michigan"
+                className="h-10 w-auto"
+              />
             </Link>
           </div>
           <nav className="hidden md:flex items-center gap-2">

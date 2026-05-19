@@ -1,4 +1,4 @@
-import { defineStyleEditorSchema, styleEditorField } from "@dotcms/uve"
+import { defineStyleEditorSchema, styleEditorField } from "@dotcms/uve/internal"
 
 /**
  * Absolute URLs so dotCMS UVE can load radio preview images (iframe may differ from admin origin).

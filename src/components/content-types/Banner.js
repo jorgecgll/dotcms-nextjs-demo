@@ -1,8 +1,9 @@
 "use client"
 
-import { useMemo } from "react"
+import { useEffect, useMemo } from "react"
 
-import { DotCMSEditableText, useStyleEditorSchemas } from "@dotcms/react"
+import { DotCMSEditableText } from "@dotcms/react"
+import { registerStyleEditorSchemas } from "@dotcms/uve/internal"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -157,7 +158,10 @@ export default function Banner (props) {
         () => createBannerStyleEditorSchemas(getStyleEditorOrigin()),
         []
     )
-    useStyleEditorSchemas(styleEditorSchemas)
+
+    useEffect(() => {
+        registerStyleEditorSchemas(styleEditorSchemas)
+    }, [styleEditorSchemas])
 
     const headingSize = dotStyleProperties?.["heading-size"]
     const headingClass =

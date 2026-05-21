@@ -1,6 +1,7 @@
 const blogSearchLucene = (() => {
     const siteId = process.env.NEXT_PUBLIC_DOTCMS_SITE_ID?.trim()
-    const base = '+contenttype:Blog +live:true'
+    const languageId = process.env.NEXT_PUBLIC_DOTCMS_LANGUAGE_ID?.trim() || '1'
+    const base = `+contenttype:Blog +live:true +languageId:${languageId}`
     if (!siteId) return base
     return `${base} +conHost:${siteId}`
 })()

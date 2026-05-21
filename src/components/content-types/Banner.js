@@ -1,15 +1,11 @@
 "use client"
 
-import { useMemo } from "react"
-
-import { DotCMSEditableText, useStyleEditorSchemas } from "@dotcms/react"
+import { DotCMSEditableText } from "@dotcms/react"
 import Image from "next/image"
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-
-import { createBannerStyleEditorSchemas } from "./banner-style-editor-schemas"
 
 const HEADING_SIZE_CLASS = {
     sm: "text-2xl md:text-3xl lg:text-4xl",
@@ -89,13 +85,6 @@ function resolveHeadingColor (value) {
     return HEADING_COLOR_CLASS.foreground
 }
 
-function getStyleEditorOrigin () {
-    if (typeof window !== "undefined") {
-        return window.location.origin
-    }
-    return (process.env.NEXT_PUBLIC_SITE_URL || "").replace(/\/$/, "")
-}
-
 function imageShellClassName (imageStyle) {
     return cn(
         "bg-gray-100 p-2 w-full",
@@ -151,12 +140,6 @@ function BannerImage ({ alt, image, imageStyle, sideBySide }) {
 
 export default function Banner (props) {
     const { title, caption, image, link, buttonText, dotStyleProperties } = props
-
-    const styleEditorSchemas = useMemo(
-        () => createBannerStyleEditorSchemas(getStyleEditorOrigin()),
-        []
-    )
-    useStyleEditorSchemas(styleEditorSchemas)
 
     const headingSize = dotStyleProperties?.["heading-size"]
     const headingClass =

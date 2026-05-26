@@ -35,12 +35,12 @@ export default function Header() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-3">
-            <Link href="/" aria-label="Barnes & Noble / University of Michigan home">
-              <img
-                src="/logo-barnes.svg"
-                alt="Barnes & Noble / University of Michigan"
-                className="h-10 w-auto"
-              />
+            <Link
+              href="/"
+              aria-label="dotCMS home"
+              className="text-xl font-semibold text-foreground tracking-tight"
+            >
+              dotCMS
             </Link>
           </div>
           <nav className="hidden md:flex items-center gap-2">

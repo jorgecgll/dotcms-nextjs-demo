@@ -32,8 +32,6 @@ const TEXT_ALIGN_CLASS = {
     right: "text-right ml-auto mr-0"
 }
 
-const DEFAULT_TEXT_ALIGN = "center"
-
 const CAPTION_BLOCK_ALIGN_CLASS = {
     center: "mx-auto text-center",
     left: "mr-auto ml-0 text-left",
@@ -53,8 +51,6 @@ const HEADING_COLOR_CLASS = {
     "secondary-foreground": "text-secondary-foreground"
 }
 
-const HEADING_COLOR_VALUES = new Set(Object.keys(HEADING_COLOR_CLASS))
-
 const CTA_VARIANT_VALUES = new Set(["default", "outline", "secondary"])
 
 const MEDIA_LAYOUT_VALUES = new Set([
@@ -64,31 +60,72 @@ const MEDIA_LAYOUT_VALUES = new Set([
     "image-right"
 ])
 
-function resolveTextAlign (value) {
-    if (value === "left" || value === "right" || value === "center") {
-        return value
+/** UVE field ids may be camelCase (textAlign) or kebab-case (text-align). */
+function styleProp (dotStyleProperties, ...keys) {
+    for (const key of keys) {
+        const value = dotStyleProperties?.[key]
+        if (value !== undefined && value !== null && value !== "") {
+            return value
+        }
     }
-    return DEFAULT_TEXT_ALIGN
+    return undefined
 }
 
-function resolveMediaLayout (value) {
-    if (MEDIA_LAYOUT_VALUES.has(value)) {
-        return value
-    }
-    return "image-bottom"
-}
+/**
+ * Maps UVE Style Editor values (dotStyleProperties) to Banner presentation.
+ * @see https://dev.dotcms.com/docs/sdk-uve-library#style-editor
+ */
+function getBannerStyles (dotStyleProperties = {}) {
+    const headingSize = styleProp(dotStyleProperties, "headingSize", "heading-size")
+    const captionSize = styleProp(dotStyleProperties, "captionSize", "caption-size")
+    const headingColor = styleProp(dotStyleProperties, "headingColor", "heading-color")
+    const sectionSpacing = styleProp(
+        dotStyleProperties,
+        "sectionSpacing",
+        "section-spacing"
+    )
+    const textAlignRaw = styleProp(dotStyleProperties, "textAlign", "text-align")
+    const mediaLayoutRaw = styleProp(dotStyleProperties, "mediaLayout", "media-layout")
+    const imageStyle =
+        styleProp(dotStyleProperties, "imageStyle", "image-style") ?? {}
+    const ctaVariantRaw = styleProp(dotStyleProperties, "ctaVariant", "cta-variant")
 
-function resolveHeadingColor (value) {
-    if (HEADING_COLOR_VALUES.has(value)) {
-        return HEADING_COLOR_CLASS[value]
+    const textAlign =
+        textAlignRaw === "left" || textAlignRaw === "right" || textAlignRaw === "center"
+            ? textAlignRaw
+            : "center"
+
+    const mediaLayout = MEDIA_LAYOUT_VALUES.has(mediaLayoutRaw)
+        ? mediaLayoutRaw
+        : "image-bottom"
+
+    const isSplit =
+        mediaLayout === "image-left" || mediaLayout === "image-right"
+
+    return {
+        headingClass: HEADING_SIZE_CLASS[headingSize] ?? HEADING_SIZE_CLASS.lg,
+        headingColorClass:
+            HEADING_COLOR_CLASS[headingColor] ?? HEADING_COLOR_CLASS.foreground,
+        captionClass: CAPTION_SIZE_CLASS[captionSize] ?? CAPTION_SIZE_CLASS.lg,
+        sectionClass:
+            SECTION_SPACING_CLASS[sectionSpacing] ?? SECTION_SPACING_CLASS.default,
+        textAlign,
+        textBlockClass: TEXT_ALIGN_CLASS[textAlign],
+        captionBlockClass: CAPTION_BLOCK_ALIGN_CLASS[textAlign],
+        headlineAlignClass: HEADLINE_ALIGN_CLASS[textAlign],
+        imageStyle,
+        ctaVariant: CTA_VARIANT_VALUES.has(ctaVariantRaw) ? ctaVariantRaw : "default",
+        mediaLayout,
+        isSplit,
+        sideBySide: isSplit
     }
-    return HEADING_COLOR_CLASS.foreground
 }
 
 function imageShellClassName (imageStyle) {
     return cn(
         "bg-gray-100 p-2 w-full",
-        imageStyle.rounded ? "rounded-3xl" : "rounded-2xl",
+        imageStyle.rounded && "rounded-3xl",
+        !imageStyle.rounded && "rounded-2xl",
         imageStyle.shadow && "shadow-xl",
         imageStyle.border &&
             "ring-2 ring-border ring-offset-2 ring-offset-background"
@@ -140,37 +177,23 @@ function BannerImage ({ alt, image, imageStyle, sideBySide }) {
 
 export default function Banner (props) {
     const { title, caption, image, link, buttonText, dotStyleProperties } = props
+    const styles = getBannerStyles(dotStyleProperties)
 
-    const headingSize = dotStyleProperties?.["heading-size"]
-    const headingClass =
-        HEADING_SIZE_CLASS[headingSize] ?? HEADING_SIZE_CLASS.lg
-
-    const headingColorClass = resolveHeadingColor(
-        dotStyleProperties?.["heading-color"]
-    )
-
-    const captionSize = dotStyleProperties?.["caption-size"]
-    const captionClass =
-        CAPTION_SIZE_CLASS[captionSize] ?? CAPTION_SIZE_CLASS.lg
-
-    const sectionSpacing = dotStyleProperties?.["section-spacing"]
-    const sectionClass =
-        SECTION_SPACING_CLASS[sectionSpacing] ?? SECTION_SPACING_CLASS.default
-
-    const textAlign = resolveTextAlign(dotStyleProperties?.["text-align"])
-    const textBlockClass = TEXT_ALIGN_CLASS[textAlign]
-    const captionBlockClass = CAPTION_BLOCK_ALIGN_CLASS[textAlign]
-
-    const imageStyle = dotStyleProperties?.["image-style"] ?? {}
-    const ctaVariantRaw = dotStyleProperties?.["cta-variant"]
-    const ctaVariant = CTA_VARIANT_VALUES.has(ctaVariantRaw)
-        ? ctaVariantRaw
-        : "default"
-
-    const mediaLayout = resolveMediaLayout(dotStyleProperties?.["media-layout"])
-    const isSplit =
-        mediaLayout === "image-left" || mediaLayout === "image-right"
-    const sideBySide = isSplit
+    const {
+        headingClass,
+        headingColorClass,
+        captionClass,
+        sectionClass,
+        textAlign,
+        textBlockClass,
+        captionBlockClass,
+        headlineAlignClass,
+        imageStyle,
+        ctaVariant,
+        mediaLayout,
+        isSplit,
+        sideBySide
+    } = styles
 
     const textStack = (
         <div
@@ -179,14 +202,14 @@ export default function Banner (props) {
                 !isSplit && "max-w-4xl",
                 !isSplit && textBlockClass,
                 isSplit && "flex w-full flex-col justify-center md:py-2",
-                isSplit && HEADLINE_ALIGN_CLASS[textAlign]
+                isSplit && headlineAlignClass
             )}
         >
             <h1
                 className={cn(
                     "mb-4 font-semibold leading-tight",
                     headingColorClass,
-                    !isSplit && HEADLINE_ALIGN_CLASS[textAlign],
+                    !isSplit && headlineAlignClass,
                     headingClass
                 )}
             >
